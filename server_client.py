@@ -25,7 +25,7 @@ while True:
     print("Received data: ", data)
 
     # Prints the output of selected options
-    print(variable)
+    print(data)
 
     # Send a response to the client
     response = "Received data: " + data
