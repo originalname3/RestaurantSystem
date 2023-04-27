@@ -4,7 +4,7 @@
 import socket
 
 host = ''
-port = 5560
+port = 5000
 
 storedValue = Value  # Value/data that the user inputs #
 
