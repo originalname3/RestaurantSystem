@@ -9,10 +9,11 @@ import RPi.GPIO as GPIO
 import time
 import os
 
+BUTTON_PIN = 16
 
 # Sets up GPIO, connects printer
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 os.system("stty -F /dev/serial0 19200")
 
 
@@ -27,11 +28,10 @@ def Printtest(channel):
 # os.system("lp -o cpi=18 /home/pi/Scripts/welcome.txt")
 
 # Test printing from IPFS! See ipfs.io
-    os.system(
-        "ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme | lp -o cpi=18")
+    os.system("'Hello' | lp")
 
 
-GPIO.add_event_detect(23, GPIO.FALLING, callback=Printtest, bouncetime=2000)
-
+GPIO.add_event_detect(BUTTON_PIN, GPIO.FALLING,
+                      callback=Printtest, bouncetime=2000)
 while 1:
     time.sleep(1)
