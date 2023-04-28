@@ -1,1 +1,2 @@
-haha this file is totally blank right now :)
+This program(s) is for a raustruant beta system using raspberry pis as the server and ordering pad. The server will allow printed receipt to be made and the ordering pad will allow...
+the user to pick food options. 
