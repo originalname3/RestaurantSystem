@@ -11,7 +11,7 @@ import os
 
 BUTTON_PIN = 16
 
-# Sets up GPIO, connects printer
+# Sets up GPIO, connects printers
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 os.system("stty -F /dev/serial0 19200")
