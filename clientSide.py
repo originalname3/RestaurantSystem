@@ -96,33 +96,41 @@ class Program(Frame):
     def writeItem(self, item):
         self.T.config(state = "normal")
         receiptLine = f"{item} -- {self.items[item]}"
-        self.T.insert("1.0", receiptLine)
+        self.T.insert(END, receiptLine + "\n")
         self.T.config(state = "disabled")
         
     def clearOrder(self):
-        self.T.destroy()
-        self.createText()
+        self.T.config(state = "normal")
+        self.T.delete("1.0", END)
+        
         
     
     def formatOrder(self):
-        print(self.__itemStrings)
-        print(self.__itemPrices)
-        print(self.__itemCount)
+        totalOrder = ""
         totalPrice = 0
+        receiptTop = f"You ordered {self.__itemCount} items total. \n"
+        itemSequence = ""
+        for i in range(self.__itemCount):
+            itemSequence += f"{self.__itemStrings[i]} --- {self.__itemPrices[i]} \n"
         for i in range(len(self.__itemPrices)):
             totalPrice += self.__itemPrices[i]
-        print(totalPrice)
+        priceAlert = f"total price: ${totalPrice}"
+        totalReceipt = receiptTop + itemSequence + priceAlert
+        print(totalReceipt)
+        
         
         self.__itemCount = 0
         self.__itemStrings = []
         self.__itemPrices = []
         self.clearOrder()
+        #tests
     
     def openHomeScreen(self):
         s1.b1 = Button(win, text = "Open menu", height = 5, width = 10, command = lambda: [self.closeHomeScreen(), self.openMenuScreen()])
         s1.b1.pack()
         s1.b2 = Button(win, text = "Quit", height = 5, width = 10, command = win.destroy)
         s1.b2.pack()
+    def createFinishButton(self):
         s1.b10 = Button(win, text = "finish order", height = 5, width = 10, command = lambda: [self.formatOrder()])
         s1.b10.pack()
         
@@ -243,6 +251,7 @@ makeScreens()
 
 
 p.openHomeScreen()
+p.createFinishButton()
 
 
 p = Program() 
