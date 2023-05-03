@@ -96,97 +96,103 @@ class Program(Frame):
     def writeItem(self, item):
         self.T.config(state = "normal")
         receiptLine = f"{item} -- {self.items[item]}"
-        self.T.insert("1.0", receiptLine)
+        self.T.insert(END, receiptLine + "\n")
         self.T.config(state = "disabled")
         
     def clearOrder(self):
-        self.T.destroy()
-        self.createText()
+        self.T.config(state = "normal")
+        self.T.delete("1.0", END)
+        
         
     
     def formatOrder(self):
-        print(self.__itemStrings)
-        print(self.__itemPrices)
-        print(self.__itemCount)
+        totalOrder = ""
         totalPrice = 0
+        receiptTop = f"You ordered {self.__itemCount} items total. \n"
+        itemSequence = ""
+        for i in range(self.__itemCount):
+            itemSequence += f"{self.__itemStrings[i]} --- {self.__itemPrices[i]} \n"
         for i in range(len(self.__itemPrices)):
             totalPrice += self.__itemPrices[i]
-        print(totalPrice)
+        priceAlert = f"total price: ${totalPrice}"
+        totalReceipt = receiptTop + itemSequence + priceAlert
+        print(totalReceipt)
+        
         
         self.__itemCount = 0
         self.__itemStrings = []
         self.__itemPrices = []
         self.clearOrder()
+        #tests
     
     def openHomeScreen(self):
-        s1.b1 = Button(win, text = "Open menu", height = 5, width = 10, command = lambda: [self.closeHomeScreen(), self.openMenuScreen()])
+        s1.b1 = Button(win, text = "Open Menu", height = 80, width = 40, bg = "GREY", command = lambda: [self.closeHomeScreen(), self.openMenuScreen()])
         s1.b1.pack()
-        s1.b2 = Button(win, text = "Quit", height = 5, width = 10, command = win.destroy)
-        s1.b2.pack()
-        s1.b10 = Button(win, text = "finish order", height = 5, width = 10, command = lambda: [self.formatOrder()])
-        s1.b10.pack()
-        
+    def createCoreButtons(self):
+        s1.b10 = Button(win, text = "Finish Order", height = 5, width = 15, bg = "GREEN", command = lambda: [self.formatOrder()])
+        s1.b10.place(x = 1100, y = 0)
+        s1.b2 = Button(win, text = "Quit", height = 5, width = 15, bg = "RED", command = win.destroy)
+        s1.b2.place(x = 0, y = 0)
     def closeHomeScreen(self):
         s1.b1.destroy()
-        s1.b2.destroy()
         
     def openMenuScreen(self):
-        s1.b1 = Button(win, text = "back", height = 5, width = 10, command = lambda: [self.closeMenuScreen(), self.openHomeScreen()])
-        s1.b2 = Button(win, text = "drinks", height = 5, width = 10, command = lambda: [self.closeMenuScreen(), self.openDrinkScreen()])
-        s1.b3 = Button(win, text = "food", height = 5, width = 10, command = lambda: [self.closeMenuScreen(), self.openFoodScreen()])
+        s1.b3 = Button(win, text = "Back", height = 5, width = 15, bg = "ORANGE", command = lambda: [self.closeMenuScreen(), self.openHomeScreen()])
+        s1.b4 = Button(win, text = "DRINKS", height = 30, width = 30, bg = "BLUE", command = lambda: [self.closeMenuScreen(), self.openDrinkScreen()])
+        s1.b5 = Button(win, text = "FOOD", height = 30, width = 30, bg = "BROWN", command = lambda: [self.closeMenuScreen(), self.openFoodScreen()])
         
-        s1.b1.pack()
-        s1.b2.pack()
-        s1.b3.pack()
+        s1.b3.place(x = 0, y = 85)
+        s1.b4.place(x = 700, y = 200)
+        s1.b5.place(x = 300, y = 200)
         
         
     def closeMenuScreen(self):
-        s1.b1.destroy()
-        s1.b2.destroy()
         s1.b3.destroy()
+        s1.b4.destroy()
+        s1.b5.destroy()
         
     def openFoodScreen(self):
-        s1.b1 = Button(win, text = "back", height = 5, width = 10, command = lambda: [self.closeFoodScreen(), self.openMenuScreen()])
-        s1.b2 = Button(win, text = "Burger", height = 5, width = 10, command = lambda: self.addItem("burger"))
-        s1.b3 = Button(win, text = "Pizza", height = 5, width = 10, command = lambda: self.addItem("pizza"))
-        s1.b4 = Button(win, text = "Steak", height = 5, width = 10, command = lambda: self.addItem("steak"))
-        s1.b5 = Button(win, text = "Spagetti", height = 5, width = 10, command = lambda: self.addItem("spagetti"))
-        s1.b6 = Button(win, text = "Fruit bowl", height = 5, width = 10, command = lambda: self.addItem("fruit bowl"))
+        s1.b3 = Button(win, text = "Back", height = 5, width = 15, bg = "ORANGE", command = lambda: [self.closeFoodScreen(), self.openMenuScreen()])
+        s1.b4 = Button(win, text = "Burger", height = 10, width = 20, bg = "GREEN", command = lambda: self.addItem("burger"))
+        s1.b5 = Button(win, text = "Pizza", height = 10, width = 20, bg = "YELLOW", command = lambda: self.addItem("pizza"))
+        s1.b6 = Button(win, text = "Steak", height = 10, width = 20, bg = "BROWN", command = lambda: self.addItem("steak"))
+        s1.b7 = Button(win, text = "Spagetti", height = 10, width = 20, bg = "ORANGE", command = lambda: self.addItem("spagetti"))
+        s1.b8 = Button(win, text = "Fruit bowl", height = 10, width = 20, bg = "RED", command = lambda: self.addItem("fruit bowl"))
         
-        s1.b1.pack()
-        s1.b2.pack()
-        s1.b3.pack()
-        s1.b4.pack()
-        s1.b5.pack()
-        s1.b6.pack()
+        s1.b3.place(x = 0, y = 85)
+        s1.b4.place(x = 225, y = 200)
+        s1.b5.place(x = 575, y = 200)
+        s1.b6.place(x = 925, y = 200)
+        s1.b7.place(x = 400, y = 450)
+        s1.b8.place(x = 750, y = 450)
         
     def closeFoodScreen(self):
-        s1.b1.destroy()
-        s1.b2.destroy()
         s1.b3.destroy()
         s1.b4.destroy()
         s1.b5.destroy()
         s1.b6.destroy()
+        s1.b7.destroy()
+        s1.b8.destroy()
         
     def openDrinkScreen(self):
-        s1.b1 = Button(win, text = "back", height = 5, width = 10, command = lambda: [self.closeDrinkScreen(), self.openMenuScreen()])
-        s1.b2 = Button(win, text = "water", height = 5, width = 10, command = lambda: self.addItem("water"))
-        s1.b3 = Button(win, text = "soda", height = 5, width = 10, command = lambda: self.addItem("soda"))
-        s1.b4 = Button(win, text = "tea", height = 5, width = 10, command = lambda: self.addItem("tea"))
-        s1.b5 = Button(win, text = "lemonade", height = 5, width = 10, command = lambda: self.addItem("lemonade"))
+        s1.b3 = Button(win, text = "Back", height = 5, width = 15, bg = "ORANGE", command = lambda: [self.closeDrinkScreen(), self.openMenuScreen()])
+        s1.b4 = Button(win, text = "Water", height = 10, width = 20, bg = "BLUE", command = lambda: self.addItem("water"))
+        s1.b5 = Button(win, text = "Soda", height = 10, width = 20, bg = "BROWN", command = lambda: self.addItem("soda"))
+        s1.b6 = Button(win, text = "Tea", height = 10, width = 20, bg = "GREEN", command = lambda: self.addItem("tea"))
+        s1.b7 = Button(win, text = "Lemonade", height = 10, width = 20, bg = "YELLOW", command = lambda: self.addItem("lemonade"))
         
-        s1.b1.pack()
-        s1.b2.pack()
-        s1.b3.pack()
-        s1.b4.pack()
-        s1.b5.pack()
+        s1.b3.place(x = 0, y = 85)
+        s1.b4.place(x = 400, y = 200)
+        s1.b5.place(x = 750, y = 200)
+        s1.b6.place(x = 400, y = 450)
+        s1.b7.place(x = 750, y = 450)
         
     def closeDrinkScreen(self):
-        s1.b1.destroy()
-        s1.b2.destroy()
         s1.b3.destroy()
         s1.b4.destroy()
         s1.b5.destroy()
+        s1.b6.destroy()
+        s1.b7.destroy()
         
         
  
@@ -243,6 +249,7 @@ makeScreens()
 
 
 p.openHomeScreen()
+p.createCoreButtons()
 
 
 p = Program() 
