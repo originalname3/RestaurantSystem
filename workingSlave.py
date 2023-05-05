@@ -264,6 +264,8 @@ def makeScreens():
     # s1.b1 = Button(1, 2, 3)
     # s2.b1 = Button(2,2,3)
 
+##### Socket Connection Ability####
+
 
 def client_program(totalReceipt):
     host = "169.254.37.31"  # Replace with host IP
@@ -278,6 +280,8 @@ def client_program(totalReceipt):
     client_socket.send(message.encode())
 
     client_socket.close()
+
+### Printing Ability###
 
 
 def Printtest(channel):
