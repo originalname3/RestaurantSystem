@@ -283,9 +283,11 @@ def client_program(totalReceipt):
 
 ### Printing Ability###
 
+# Prints it out correcty##
+
 
 def Printtest(channel):
-    subprocess.run(["lp", "-o", "cpi=18", "/home/pi/Desktop/Welcome.txt"])
+    os.system("{} | lp".format(totalReceipt))
 
 
 GPIO.add_event_detect(BUTTON_PIN, GPIO.FALLING,
